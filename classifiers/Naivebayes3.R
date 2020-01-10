@@ -1,0 +1,26 @@
+p=read.csv("A:/sem8/final year project/g1.csv")
+View(p)
+str(p)
+summary(p)
+colnames(p)
+library(e1071)
+n <- nrow(p)
+train_indices <- 1:round(0.9* n)
+Training <- p[train_indices, ]
+test_indices <- (round(0.9*n) + 1):n
+Testing <- p[test_indices, ]
+Testing_labels=Testing$t
+nrow(Training)
+nrow(Testing)
+View(Training)
+View(Testing)
+library(rminer)
+Classifier_1=naiveBayes(t~.,Training)
+print(Classifier_1)
+Bayes_Prediction_1=predict(Classifier_1,Testing)
+table(Testing$t,Bayes_Prediction_1)
+print(Bayes_Prediction_1)
+mmetric(Testing$t,Bayes_Prediction_1,c("ACC","PRECISION","TPR"))
+confusionMatrix(Bayes_Prediction_1,factor(Testing$t))
+class(Classifier_1)
+class(Testing)
